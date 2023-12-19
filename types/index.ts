@@ -7,14 +7,26 @@ export type SafeUser = Omit<User, 'createdAt' | 'updatedAt' | 'emailVerified'> &
 };
 
 export type SubCategoryItem = {
+  id: string;
   title: string;
   href: string;
   description: string;
 }
 
 export type CategoryItem = {
+  id: string;
   title: string;
   href: string;
   imgSrc: string;
+  description: string;
   subCategory: SubCategoryItem[];
+}
+
+export type SiteItem = {
+  id: string;
+  name: string;
+  city: string;
+  address: string;
+  lat: number;
+  lng: number;
 }

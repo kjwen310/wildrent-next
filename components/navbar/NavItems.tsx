@@ -1,47 +1,39 @@
 "use client"
 
-import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation'
 import { SafeUser } from '../../types';
-import { UserRound, Store, ShoppingBag } from 'lucide-react'
-import useRegisterModal from '@/hooks/useRegisterModal';
-import useLoginModal from '@/hooks/useLoginModal';
-import { signOut } from 'next-auth/react';
-
+import { UserRound, Heart, ShoppingBag } from 'lucide-react'
+import { UserDropdown } from './UserDropdown'
 interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
 
 const NavItems = ({ currentUser }: UserMenuProps) => {
   const router = useRouter()
-  const registerModal = useRegisterModal()
-  const loginModal = useLoginModal()
 
-  const onGetAccount = () => {
-    if (currentUser) {
-      router.push('/account')
-    } else {
-      loginModal.onOpen()
-    }
+  const goLogin = () => {
+    router.push('/login')
   }
 
-  const onGetSite = () => {
-    router.push('/site')
+  const goFavorite = () => {
+    router.push('/favorite')
   }
 
-  const onGetCart = () => {
-    if (currentUser) {
-      router.push('/cart')
-    } else {
-      registerModal.onOpen()
-    }
+  const goCart = () => {
+    router.push('/cart')
   }
 
   return (
     <div className="flex items-center gap-4 md:gap-8">
-      <UserRound onClick={onGetAccount} className="cursor-pointer" />
-      <Store onClick={onGetSite} className="cursor-pointer" />
-      <ShoppingBag onClick={onGetCart} className="cursor-pointer" />
+      {currentUser ? (
+        <div className="cursor-pointer">
+          <UserDropdown />
+        </div>
+      ) : (
+        <UserRound onClick={goLogin} className="cursor-pointer" />
+      )}
+      <Heart onClick={goFavorite} className="cursor-pointer" />
+      <ShoppingBag onClick={goCart} className="cursor-pointer" />
     </div>
   )
 }

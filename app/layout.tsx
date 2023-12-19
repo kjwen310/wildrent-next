@@ -3,9 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 
 import Navbar from '../components/navbar/Navbar'
-import Login from '../components/modals/LoginModal'
-import Register from '../components/modals/Register'
-import getCurrentUser from '../actions/getCurrentUser'
+import getCurrentUser from '@/actions/getCurrentUser'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,9 +23,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar currentUser={currentUser} />
-        <Login />
-        <Register />
-        <div className="pb-20 pt-15">
+        <div className="pt-32">
           {children}
         </div>
       </body>
